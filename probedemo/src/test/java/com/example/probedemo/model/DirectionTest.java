@@ -9,4 +9,9 @@ public class DirectionTest {
     void testTurnRightFromUp() {
         assertEquals(Direction.RIGHT, Direction.UP.turnRight());
     }
+
+    @Test
+    void testTurnLeftFromUp() {
+        assertEquals(Direction.LEFT, Direction.UP.turnLeft());
+    }
 }

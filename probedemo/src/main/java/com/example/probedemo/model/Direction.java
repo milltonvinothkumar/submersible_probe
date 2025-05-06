@@ -5,7 +5,12 @@ public enum Direction {
     UP, RIGHT, DOWN, LEFT;
 
     public Direction turnLeft() {
-        return null;
+        return switch(this) {
+            case UP -> LEFT;
+            case LEFT -> DOWN;
+            case DOWN -> RIGHT;
+            case RIGHT -> UP;
+        };
     }
 
     public Direction turnRight() {
