@@ -9,6 +9,11 @@ public enum Direction {
     }
 
     public Direction turnRight() {
-        return null;
+        return switch(this) {
+            case UP -> RIGHT;
+            case RIGHT -> DOWN;
+            case DOWN -> LEFT;
+            case LEFT -> UP;
+        };
     }
 }
