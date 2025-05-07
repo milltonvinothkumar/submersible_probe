@@ -14,6 +14,8 @@ public class ProbeService {
     int seaHeight = 10;
 
     Set<String> obstacles = new HashSet<>();
+
+    private Set<String> visitedCordinates = new HashSet<>();
     public Position initProbe(int x, int y, String directionString, Set<String> obstacles) {
 
         Direction direction;
@@ -32,7 +34,8 @@ public class ProbeService {
         }
 
         Position position = new Position(x, y, direction, obstacles);
-
+        visitedCordinates.clear();
+        visitedCordinates.add(x + "," + y);
         return position;
     }
 }
