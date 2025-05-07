@@ -50,6 +50,7 @@ public class ProbeService {
         for (String cmd : commands) {
             switch (cmd) {
                 case "TURN_RIGHT" -> position.setDirection(position.getDirection().turnRight());
+                case "TURN_LEFT" -> position.setDirection(position.getDirection().turnLeft());
             }
         }
         visitedCordinates.add(position.getX() + "," + position.getY());

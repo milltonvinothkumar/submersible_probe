@@ -3,7 +3,6 @@ package com.example.probedemo.service;
 import com.example.probedemo.exception.InitializeProbeException;
 import com.example.probedemo.model.Direction;
 import com.example.probedemo.model.Position;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,5 +61,12 @@ public class ProbeServiceTest {
         Exception ex = assertThrows(InitializeProbeException.class, () ->
                 probeService.executeCommands(List.of("TURN_RIGHT")));
         assertTrue(ex.getMessage().contains("Probe position is not initialized yet"));
+    }
+
+    @Test
+    void testTurnLeft() {
+        position = probeService.initProbe(1, 2, "UP", new HashSet<>());
+        probeService.executeCommands(List.of("TURN_LEFT"));
+        assertEquals(Direction.LEFT, probeService.getPosition().getDirection());
     }
 }
