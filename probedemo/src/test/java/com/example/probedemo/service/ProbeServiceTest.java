@@ -1,5 +1,6 @@
 package com.example.probedemo.service;
 
+import com.example.probedemo.exception.InitializeProbeException;
 import com.example.probedemo.model.Direction;
 import com.example.probedemo.model.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,10 +20,6 @@ public class ProbeServiceTest {
     @Autowired
     private ProbeService probeService;
     private Position position;
-
-    @BeforeEach
-    public void setUp() {
-    }
 
     @Test
     public void testInitProbeWithValidDirection() {
@@ -35,14 +33,14 @@ public class ProbeServiceTest {
     @Test
     void testInitProbeInvalidBoundary() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-                probeService.initProbe(-1, 20, "testing", new HashSet<>()));
+                probeService.initProbe(-1, 20, "UP", new HashSet<>()));
         assertTrue(ex.getMessage().contains("Initial positions are out of boundary :"));
     }
 
     @Test
     void testInitProbeWithObstacles() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-                probeService.initProbe(1, 2, "testing", Set.of("1,2")));
+                probeService.initProbe(1, 2, "UP", Set.of("1,2")));
         assertTrue(ex.getMessage().contains("Initial positions are blocked by obstacles :"));
     }
     @Test
@@ -50,5 +48,19 @@ public class ProbeServiceTest {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
                 probeService.initProbe(1, 2, "testing", new HashSet<>()));
         assertTrue(ex.getMessage().contains("Invalid direction"));
+    }
+
+    @Test
+    void testTurnRight() {
+        position = probeService.initProbe(1, 2, "UP", new HashSet<>());
+        probeService.executeCommands(List.of("TURN_RIGHT"));
+        assertEquals(Direction.RIGHT, probeService.getPosition().getDirection());
+    }
+
+    @Test
+    void testExecuteCommandsWithoutInitailizingProbe() {
+        Exception ex = assertThrows(InitializeProbeException.class, () ->
+                probeService.executeCommands(List.of("TURN_RIGHT")));
+        assertTrue(ex.getMessage().contains("Probe position is not initialized yet"));
     }
 }
