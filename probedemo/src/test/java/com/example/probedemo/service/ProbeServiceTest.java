@@ -37,6 +37,12 @@ public class ProbeServiceTest {
     }
 
     @Test
+    void testInitProbeWithObstacles() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+                probeService.initProbe(1, 2, "testing"));
+        assertTrue(ex.getMessage().contains("Initial positions are blocked by obstacles :"));
+    }
+    @Test
     void testInitProbeInvalidDirection() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
                 probeService.initProbe(1, 2, "testing"));
