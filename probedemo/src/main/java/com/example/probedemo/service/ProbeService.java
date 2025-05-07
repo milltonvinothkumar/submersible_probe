@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProbeService {
 
+    int seaWidth = 10;
+    int seaHeight = 10;
     public Position initProbe(int x, int y, String directionString) {
 
         Direction direction;
+        if (x < 0 || x > seaWidth || y < 0 || y > seaHeight) {
+            throw new IllegalArgumentException("Initial positions are out of boundary : (" + x + "," + y + ")");
+        }
         try {
             direction = Direction.valueOf(directionString.toUpperCase());
         } catch (IllegalArgumentException e) {

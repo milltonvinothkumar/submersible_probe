@@ -30,6 +30,13 @@ public class ProbeServiceTest {
     }
 
     @Test
+    void testInitProbeInvalidBoundary() {
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+                probeService.initProbe(-1, 20, "testing"));
+        assertTrue(ex.getMessage().contains("Initial positions are out of boundary :"));
+    }
+
+    @Test
     void testInitProbeInvalidDirection() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
                 probeService.initProbe(1, 2, "testing"));
