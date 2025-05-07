@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -23,7 +26,7 @@ public class ProbeServiceTest {
     @Test
     public void testInitProbeWithValidDirection() {
 
-        position = probeService.initProbe(1, 2, "UP");
+        position = probeService.initProbe(1, 2, "UP", new HashSet<>());
         assertEquals(1, position.getX());
         assertEquals(2, position.getY());
         assertEquals(Direction.UP, position.getDirection());
@@ -32,20 +35,20 @@ public class ProbeServiceTest {
     @Test
     void testInitProbeInvalidBoundary() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-                probeService.initProbe(-1, 20, "testing"));
+                probeService.initProbe(-1, 20, "testing", new HashSet<>()));
         assertTrue(ex.getMessage().contains("Initial positions are out of boundary :"));
     }
 
     @Test
     void testInitProbeWithObstacles() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-                probeService.initProbe(1, 2, "testing"));
+                probeService.initProbe(1, 2, "testing", Set.of("1,2")));
         assertTrue(ex.getMessage().contains("Initial positions are blocked by obstacles :"));
     }
     @Test
     void testInitProbeInvalidDirection() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-                probeService.initProbe(1, 2, "testing"));
+                probeService.initProbe(1, 2, "testing", new HashSet<>()));
         assertTrue(ex.getMessage().contains("Invalid direction"));
     }
 }
