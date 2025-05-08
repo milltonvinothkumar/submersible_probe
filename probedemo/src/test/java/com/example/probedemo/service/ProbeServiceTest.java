@@ -1,6 +1,7 @@
 package com.example.probedemo.service;
 
 import com.example.probedemo.exception.InitializeProbeException;
+import com.example.probedemo.exception.UnableToMoveException;
 import com.example.probedemo.model.Direction;
 import com.example.probedemo.model.Position;
 import org.junit.jupiter.api.Test;
@@ -109,5 +110,13 @@ public class ProbeServiceTest {
         probeService.executeCommands(List.of("MOVE_BACKWARD"));
         assertEquals(0, position.getX());
         assertEquals(2, position.getY());
+    }
+
+    @Test
+    void testMoveToInvalidBoundary() {
+        position = probeService.initProbe(0, 2, "RIGHT", new HashSet<>());
+        Exception ex = assertThrows(UnableToMoveException.class, () ->
+                probeService.executeCommands(List.of("MOVE_BACKWARD")));
+        assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
     }
 }
