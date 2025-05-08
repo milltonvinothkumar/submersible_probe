@@ -79,7 +79,7 @@ public class ProbeService {
             case LEFT -> x -= step;
         }
 
-        if (x >= 0 && x < seaWidth && y < seaHeight) {
+        if (x >= 0 && x < seaWidth && y >= 0 && y < seaHeight) {
 
             position.setX(x);
             position.setY(y);

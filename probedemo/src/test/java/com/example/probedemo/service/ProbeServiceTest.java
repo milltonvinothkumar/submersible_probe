@@ -140,7 +140,7 @@ public class ProbeServiceTest {
     void testMoveToInvalidHeight() {
         position = probeService.initProbe(1, 0, "UP", new HashSet<>());
         Exception ex = assertThrows(UnableToMoveException.class, () ->
-                probeService.executeCommands(List.of("MOVE_FORWARD")));
+                probeService.executeCommands(List.of("MOVE_BACKWARD")));
         assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
     }
 }
