@@ -119,4 +119,12 @@ public class ProbeServiceTest {
                 probeService.executeCommands(List.of("MOVE_BACKWARD")));
         assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
     }
+
+    @Test
+    void testMoveToOutOfBoundaryWidth() {
+        position = probeService.initProbe(probeService.seaWidth, 2, "RIGHT", new HashSet<>());
+        Exception ex = assertThrows(UnableToMoveException.class, () ->
+                probeService.executeCommands(List.of("MOVE_FORWARD")));
+        assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
+    }
 }
