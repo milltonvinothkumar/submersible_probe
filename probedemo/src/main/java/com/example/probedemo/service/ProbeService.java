@@ -70,6 +70,7 @@ public class ProbeService {
 
         switch(direction) {
             case UP -> y += step;
+            case DOWN -> y -= step;
         }
 
         position.setX(x);
