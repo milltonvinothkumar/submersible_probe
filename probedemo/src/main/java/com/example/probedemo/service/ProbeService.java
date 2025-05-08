@@ -52,6 +52,7 @@ public class ProbeService {
                 case "TURN_RIGHT" -> position.setDirection(position.getDirection().turnRight());
                 case "TURN_LEFT" -> position.setDirection(position.getDirection().turnLeft());
                 case "MOVE_FORWARD" -> move(1);
+                case "MOVE_BACKWARD" -> move(-1);
             }
         }
         visitedCordinates.add(position.getX() + "," + position.getY());
