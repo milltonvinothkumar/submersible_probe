@@ -40,4 +40,12 @@ public class Position {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+
+    public Set<String> getObstacles() {
+        return obstacles;
+    }
+
+    public void setObstacles(Set<String> obstacles) {
+        this.obstacles = obstacles;
+    }
 }

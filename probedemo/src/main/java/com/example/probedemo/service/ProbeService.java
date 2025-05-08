@@ -71,7 +71,7 @@ public class ProbeService {
         int x = position.getX();
         int y = position.getY();;
         Direction direction = position.getDirection();
-
+        Set<String> obstaclesSet = position.getObstacles();
         switch(direction) {
             case UP -> y += step;
             case DOWN -> y -= step;
@@ -79,12 +79,13 @@ public class ProbeService {
             case LEFT -> x -= step;
         }
 
-        if (x >= 0 && x < seaWidth && y >= 0 && y < seaHeight) {
+        String positionCordinates = x + "," + y;
+        if (x >= 0 && x < seaWidth && y >= 0 && y < seaHeight && !obstaclesSet.contains(positionCordinates)) {
 
             position.setX(x);
             position.setY(y);
         } else {
-            throw new UnableToMoveException("Blocked by boundary or obstacle at " + x + "," + y);
+            throw new UnableToMoveException("Blocked by boundary or obstacle at " + positionCordinates);
         }
     }
 }
