@@ -69,4 +69,13 @@ public class ProbeServiceTest {
         probeService.executeCommands(List.of("TURN_LEFT"));
         assertEquals(Direction.LEFT, probeService.getPosition().getDirection());
     }
+
+    @Test
+    void testMoveForward() {
+        position = probeService.initProbe(1, 2, "UP", new HashSet<>());
+        probeService.executeCommands(List.of("MOVE_FORWARD"));
+        Position execPosition = probeService.getPosition();
+        assertEquals(position.getX(), execPosition.getX());
+        assertEquals(position.getY() + 1, execPosition.getY());
+    }
 }
