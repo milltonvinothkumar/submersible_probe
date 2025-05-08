@@ -129,7 +129,7 @@ public class ProbeServiceTest {
     }
 
     @Test
-    void testMoveToOutOfBoundaryHieght() {
+    void testMoveToOutOfBoundaryHeight() {
         position = probeService.initProbe(1, probeService.seaHeight, "UP", new HashSet<>());
         Exception ex = assertThrows(UnableToMoveException.class, () ->
                 probeService.executeCommands(List.of("MOVE_FORWARD")));
