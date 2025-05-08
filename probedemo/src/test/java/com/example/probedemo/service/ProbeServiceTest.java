@@ -102,4 +102,12 @@ public class ProbeServiceTest {
         assertEquals(2, position.getX());
         assertEquals(2, position.getY());
     }
+
+    @Test
+    void testMoveBackwardFromRight() {
+        position = probeService.initProbe(1, 2, "RIGHT", new HashSet<>());
+        probeService.executeCommands(List.of("MOVE_BACKWARD"));
+        assertEquals(0, position.getX());
+        assertEquals(2, position.getY());
+    }
 }
