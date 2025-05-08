@@ -74,8 +74,7 @@ public class ProbeServiceTest {
     void testMoveForward() {
         position = probeService.initProbe(1, 2, "UP", new HashSet<>());
         probeService.executeCommands(List.of("MOVE_FORWARD"));
-        Position execPosition = probeService.getPosition();
-        assertEquals(position.getX(), execPosition.getX());
-        assertEquals(position.getY() + 1, execPosition.getY());
+        assertEquals(1, position.getX());
+        assertEquals(3, position.getY());
     }
 }
