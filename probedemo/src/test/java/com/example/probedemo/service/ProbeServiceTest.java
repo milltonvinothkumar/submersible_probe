@@ -127,4 +127,12 @@ public class ProbeServiceTest {
                 probeService.executeCommands(List.of("MOVE_FORWARD")));
         assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
     }
+
+    @Test
+    void testMoveToOutOfBoundaryHieght() {
+        position = probeService.initProbe(1, probeService.seaHeight, "UP", new HashSet<>());
+        Exception ex = assertThrows(UnableToMoveException.class, () ->
+                probeService.executeCommands(List.of("MOVE_FORWARD")));
+        assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
+    }
 }
