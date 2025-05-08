@@ -1,6 +1,7 @@
 package com.example.probedemo.service;
 
 import com.example.probedemo.exception.InitializeProbeException;
+import com.example.probedemo.exception.UnableToMoveException;
 import com.example.probedemo.model.Direction;
 import com.example.probedemo.model.Position;
 import org.springframework.stereotype.Service;
@@ -78,7 +79,12 @@ public class ProbeService {
             case LEFT -> x -= step;
         }
 
-        position.setX(x);
-        position.setY(y);
+        if (x >= 0) {
+
+            position.setX(x);
+            position.setY(y);
+        } else {
+            throw new UnableToMoveException("Blocked by boundary or obstacle at " + x + "," + y);
+        }
     }
 }
