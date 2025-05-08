@@ -63,6 +63,9 @@ public class ProbeService {
         return position;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
     private void move(int step) {
         int x = position.getX();
         int y = position.getY();;

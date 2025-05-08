@@ -58,6 +58,7 @@ public class ProbeServiceTest {
 
     @Test
     void testExecuteCommandsWithoutInitailizingProbe() {
+        probeService.setPosition(null);
         Exception ex = assertThrows(InitializeProbeException.class, () ->
                 probeService.executeCommands(List.of("TURN_RIGHT")));
         assertTrue(ex.getMessage().contains("Probe position is not initialized yet"));
