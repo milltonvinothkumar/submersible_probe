@@ -151,4 +151,12 @@ public class ProbeServiceTest {
                 probeService.executeCommands(List.of("MOVE_FORWARD")));
         assertTrue(ex.getMessage().contains("Blocked by boundary or obstacle at "));
     }
+
+    @Test
+    void testGetVisitedCordinates() {
+        position = probeService.initProbe(1, 0, "UP", new HashSet<>());
+        probeService.executeCommands(List.of("MOVE_FORWARD"));
+        assertTrue(probeService.getVisitedCordinates().contains("1,0"));
+        assertTrue(probeService.getVisitedCordinates().contains("1,1"));
+    }
 }

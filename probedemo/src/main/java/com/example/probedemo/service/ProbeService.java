@@ -82,10 +82,15 @@ public class ProbeService {
         String positionCordinates = x + "," + y;
         if (x >= 0 && x < seaWidth && y >= 0 && y < seaHeight && !obstaclesSet.contains(positionCordinates)) {
 
+            visitedCordinates.add(positionCordinates);
             position.setX(x);
             position.setY(y);
         } else {
             throw new UnableToMoveException("Blocked by boundary or obstacle at " + positionCordinates);
         }
+    }
+
+    public Set<String> getVisitedCordinates() {
+        return visitedCordinates;
     }
 }
