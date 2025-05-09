@@ -4,8 +4,6 @@ import com.example.probedemo.model.Direction;
 import com.example.probedemo.model.Position;
 import com.example.probedemo.service.ProbeService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -54,5 +53,19 @@ public class ProbeControllerTest {
         mockMvc.perform(post("/api/v1/probe/commands").contentType(MediaType.APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isOk());
         verify(probeService, times(1)).executeCommands(commands);
+    }
+
+    @Test
+    public void testStatus() throws Exception {
+
+        Set<String> visitedCordinates = Set.of("3,5", "3,6");
+        Position position = new Position(3, 5, Direction.UP, new HashSet<>());
+        when(probeService.getPosition()).thenReturn(position);
+        when(probeService.getVisitedCordinates()).thenReturn(visitedCordinates);
+
+        mockMvc.perform(get("/api/v1/probe/status"))
+                .andExpect(status().isOk());
+        verify(probeService, times(1)).getPosition();
+        verify(probeService, times(1)).getVisitedCordinates();
     }
 }
