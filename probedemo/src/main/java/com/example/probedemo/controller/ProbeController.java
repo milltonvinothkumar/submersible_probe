@@ -31,4 +31,11 @@ public class ProbeController {
         Position position = probeService.initProbe(x, y, direction, obstacles);
         return ResponseEntity.ok(position);
     }
+
+    @PostMapping("/commands")
+    public ResponseEntity<Position> sendCommands(@RequestBody List<String> commands) {
+
+        Position position = probeService.executeCommands(commands);
+        return ResponseEntity.ok(position);
+    }
 }

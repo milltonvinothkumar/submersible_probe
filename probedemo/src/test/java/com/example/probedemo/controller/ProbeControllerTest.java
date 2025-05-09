@@ -13,6 +13,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
@@ -40,5 +41,18 @@ public class ProbeControllerTest {
         mockMvc.perform(post("/api/v1/probe/init").contentType(MediaType.APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isOk());
         verify(probeService, times(1)).initProbe(2,3,"UP", Set.of("4,3", "2,5"));
+    }
+
+    @Test
+    public void testExecuteCommands() throws Exception {
+
+        List<String> commands = List.of("MOVE_FORWARD");
+        Position position = new Position(3, 5, Direction.UP, new HashSet<>());
+        when(probeService.executeCommands(commands)).thenReturn(position);
+
+        String inputJson = "[\"MOVE_FORWARD\"]";
+        mockMvc.perform(post("/api/v1/probe/commands").contentType(MediaType.APPLICATION_JSON).content(inputJson))
+                .andExpect(status().isOk());
+        verify(probeService, times(1)).executeCommands(commands);
     }
 }
